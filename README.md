@@ -21,7 +21,6 @@
 7. Add LWC to Lightning page
 8. Post-install verification and smoke tests
 9. Troubleshooting & common issues
-10. Contact / Support
 
 ---
 
