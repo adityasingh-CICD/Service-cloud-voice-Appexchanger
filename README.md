@@ -1,7 +1,3 @@
-This is a great, detailed installation guide. Here is the content formatted for a Git README file using Markdown.
-
------
-
 # 🚀 AppExchanger — Installation and Configuration Guide
 
 This guide explains how to install and configure the **AppExchanger** package and deploy the required AWS Lambda functions. Once configured, supervisors, managers, and admins can manage **Hours of Operation**, **Queue Management**, **User Management**, and **Routing Profiles** directly from the Salesforce UI.
