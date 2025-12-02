@@ -99,14 +99,13 @@ Repeat the following steps for **each** of the 8 Lambda packages:
 3.  Verify the **Handler** setting matches the package's configuration (e.g., `index.handler` or `app.lambda_handler`).
 4.  Click **Deploy**.
 
-### 5.4 Create Function URL (Public HTTPS Endpoint)
+### 5.4 Create Function URL
 
 Repeat for all 8 functions. The **Function URL** is the public endpoint Salesforce will call.
 
 1.  On the Lambda function page $\rightarrow$ **Configuration** tab $\rightarrow$ **Function URL**.
 2.  Click **Create function URL**.
-3.  **Auth type:** Choose **NONE** if AppExchanger expects non-authenticated calls.
-      * *Alternatively, choose **AWS\_IAM** if you secure calls with IAM (requires SigV4 in Salesforce).*
+3.  **Auth type:**choose **AWS_IAM** if you secure calls with IAM (requires SigV4 in Salesforce).*
 4.  Click **Create**.
 5.  **Copy the Function URL value** (it will look like `https://<xyz>.lambda-url.<region>.on.aws/`). **Save this URL** for the next step.
 
