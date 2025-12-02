@@ -1,184 +1,190 @@
-# AppExchanger — README
+This is a great, detailed installation guide. Here is the content formatted for a Git README file using Markdown.
 
-> This README explains how to install and configure the **AppExchanger** package and add the required AWS Lambda functions so supervisors, managers, and admins can manage Hours of Operation, Queue Management, User Management, and Routing Profiles directly from the Salesforce UI.
+-----
 
----
+# 🚀 AppExchanger — Installation and Configuration Guide
 
-## Table of Contents
+This guide explains how to install and configure the **AppExchanger** package and deploy the required AWS Lambda functions. Once configured, supervisors, managers, and admins can manage **Hours of Operation**, **Queue Management**, **User Management**, and **Routing Profiles** directly from the Salesforce UI.
 
-1. Prerequisites
-2. What this package provides
-3. Package installation (Salesforce AppExchange)
-4. Download Lambda packages from Git
-5. Add Lambda functions to your AWS Org (step-by-step)
+## 🧭 Table of Contents
 
-   * Create Lambda functions in console
-   * Set execution role and policies
-   * Upload code
-   * Configure function URL
-   * Add Lambda permissions for Amazon Connect
-6. Update Salesforce custom metadata with Lambda URLs
-7. Add LWC to Lightning page
-8. Post-install verification and smoke tests
-9. Troubleshooting & common issues
+1.  [Prerequisites](https://www.google.com/search?q=%231-prerequisites)
+2.  [What this Package Provides](https://www.google.com/search?q=%232-what-this-package-provides)
+3.  [Package Installation (Salesforce AppExchange)](https://www.google.com/search?q=%233-package-installation-salesforce-appexchange)
+4.  [Download Lambda Packages from Git](https://www.google.com/search?q=%234-download-lambda-packages-from-git)
+5.  [Add Lambda Functions to your AWS Org (Step-by-Step)](https://www.google.com/search?q=%235-add-lambda-functions-to-your-aws-org-step-by-step)
+      * [5.1 Create or Choose an IAM Role for Execution](https://www.google.com/search?q=%2351-create-or-choose-an-iam-role-for-execution)
+      * [5.2 Create the Lambda Functions (Console Method)](https://www.google.com/search?q=%2352-create-the-lambda-functions-console-method)
+      * [5.3 Upload Function Code](https://www.google.com/search?q=%2353-upload-function-code)
+      * [5.4 Create Function URL (Public HTTPS Endpoint)](https://www.google.com/search?q=%2354-create-function-url-public-https-endpoint)
+      * [5.5 Add Lambda Permission so Amazon Connect Info is Fetched (AWS Console Method)](https://www.google.com/search?q=%2355-add-lambda-permission-so-amazon-connect-info-is-fetched-aws-console-method)
+6.  [Update Salesforce Custom Metadata with Lambda URLs](https://www.google.com/search?q=%236-update-salesforce-custom-metadata-with-lambda-urls)
+7.  [Add Lightning Web Component (LWC) to the Lightning Page](https://www.google.com/search?q=%237-add-lightning-web-component-lwc-to-the-lightning-page)
+8.  [Post-Install Verification and Smoke Tests](https://www.google.com/search?q=%238-post-install-verification-and-smoke-tests)
+9.  [Troubleshooting & Common Issues](https://www.google.com/search?q=%239-troubleshooting--common-issues)
 
----
+-----
 
-## 1) Prerequisites
+## 1\) Prerequisites
 
-* Salesforce org with System Administrator access.
-* AppExchanger package file (installed from Salesforce AppExchange).
-* AWS account/org used as the telephony provider and connected to your Salesforce org (Amazon Connect instance in the same AWS region where Lambda functions will be created).
-* Access to the Git repository that contains the 8 Lambda packages (download or clone access).
-* AWS Console access with permissions to create Lambda functions, create function URLs, attach roles/policies and add permissions (or AWS CLI access).
-* Basic knowledge of Salesforce custom metadata and Lightning App Builder.
+To successfully deploy and configure AppExchanger, you require:
 
----
+  * **Salesforce:** Org with **System Administrator** access.
+  * **Package:** The **AppExchanger** package file (installed from Salesforce AppExchange).
+  * **AWS Account:** The AWS account/org used as the telephony provider, connected to your Salesforce org.
+    > The **Amazon Connect instance** must be in the **same AWS region** where Lambda functions will be created.
+  * **Source Code:** Access (download or clone) to the Git repository containing the **8 Lambda packages**.
+  * **AWS Permissions:** AWS Console access with permissions to:
+      * Create Lambda functions and Function URLs.
+      * Attach roles/policies and add permissions (or AWS CLI access).
+  * **Knowledge:** Basic knowledge of Salesforce custom metadata and Lightning App Builder.
 
-## 2) What this package provides
+-----
 
-After installation and configuration, supervisors/managers/admins will be able to manage from Salesforce UI:
+## 2\) What this Package Provides
 
-* Hours of Operation
-* Queue Management
-* User Management
-* Routing Profile Management
+After installation and configuration, supervisors/managers/admins will be able to manage the following features directly from the Salesforce UI:
 
-To enable those features, Salesforce calls AWS Lambda endpoints. You will deploy 8 Lambda functions and register their function URLs in the package's custom metadata.
+  * **Hours of Operation**
+  * **Queue Management**
+  * **User Management**
+  * **Routing Profile Management**
 
----
+💡 **Note:** Salesforce calls AWS Lambda endpoints to enable these features. You will deploy 8 Lambda functions and register their **Function URLs** in the package's custom metadata.
 
-## 3) Package installation (Salesforce AppExchange)
+-----
 
-1. Login to your Salesforce org as a System Administrator.
-2. Go to AppExchange and find **AppExchanger** (or use the direct install link provided by your vendor).
-3. Click **Get It Now** → choose the target org (Production or Sandbox) → Install for Admins Only (or All Users as required).
-4. Wait for installation to complete. Grant required permissions when prompted.
+## 3\) Package Installation (Salesforce AppExchange)
 
-**Note:** After the package installs, a custom metadata type named **`Lambda_Code_URL__mdt`** (or similar) will be available — this is where you'll paste the function URLs later.
+1.  Login to your Salesforce org as a **System Administrator**.
+2.  Go to **AppExchange** and find **AppExchanger** (or use the direct install link provided).
+3.  Click **Get It Now** $\rightarrow$ choose the target org (**Production or Sandbox**).
+4.  Select **Install for Admins Only** (or All Users as required).
+5.  Wait for the installation to complete. Grant required permissions when prompted.
 
----
+-----
 
-## 4) Download Lambda packages from Git
+## 4\) Download Lambda Packages from Git
 
-1. Clone or download the repo that contains the 8 Lambda packages.
+1.  Clone or download the repository that contains the **8 Lambda packages**.
+2.  You should find 8 directories/files—one corresponding to each Lambda function. **Download all of them.**
 
-2. You should find 8 directories/files — one per lambda, download those.
+-----
 
-Adjust names above to match the repository.
+## 5\) Add Lambda Functions to your AWS Org (Step-by-Step)
 
-## 5) Add Lambda functions to your AWS Org (step-by-step)
+⚠️ **Important:** Ensure you create Lambda functions in the **same AWS region** where your Amazon Connect instance is deployed.
 
-> **Important:** Ensure you create Lambda functions in the **same AWS region** where your Amazon Connect instance is deployed.
+### 5.1 Create or Choose an IAM USER
 
-### 5.1 Create or choose an IAM execution role
+1.  In AWS Console $\rightarrow$ **IAM** $\rightarrow$ **Users** $\rightarrow$ **Create role**.
+2.  Name the user
+3.  Attach the following managed policies:
+      * `AWSLambdaBasicExecutionRole` (for CloudWatch logs)
+      * `AmazonConnectFullAccess` (if the lambda needs to interact with Amazon Connect APIs)
+      * Any additional policies needed for your environment (e.g., S3, Secrets Manager, DynamoDB).
+4.   After Save, Capture the IAM Role ARN, Secret Key and Access Key. (for Salesforce Name Credential).
 
-1. In AWS Console → IAM → Roles → Create role.
-2. Choose **AWS service** → **Lambda**.
-3. Attach managed policies:
+### 5.2 Create the Lambda Functions (Console Method)
 
-   * `AWSLambdaBasicExecutionRole` (for CloudWatch logs)
-   * `AmazonConnectFullAccess` (if the lambda needs to interact with Amazon Connect APIs)
-   * Any additional policies needed for your environment (e.g., access to S3, Secrets Manager, DynamoDB, etc.).
-4. Name role e.g. `lambda-appExchanger-execution-role` and create it.
+Repeat the following steps for **each** of the 8 Lambda packages:
 
-### 5.2 Create the Lambda functions (Console method)
+1.  AWS Console $\rightarrow$ **Lambda** $\rightarrow$ **Functions** $\rightarrow$ **Create function**.
+2.  Choose **Author from scratch**.
+3.  **Function name:** Use a clear name, e.g. `appex-hours-of-operation`.
+4.  **Runtime:** Choose the runtime used in your package (e.g., `nodejs18.x`, `python3.11`).
+5.  **Execution role:** Choose **Use an existing role** and select the role created in step 5.1.
+6.  Click **Create function**.
 
-Repeat the following steps for each of the 8 Lambda packages:
+### 5.3 Upload Function Code
 
-1. AWS Console → Lambda → Functions → **Create function**.
-2. Choose **Author from scratch**.
-3. Function name: use a clear name, e.g. `appex-hours-of-operation`.
-4. Runtime: choose the runtime used in your package (e.g., `nodejs18.x`, `python3.11`, etc.).
-5. Execution role: choose **Use an existing role** and select `lambda-appExchanger-execution-role` (or the role you created).
-6. Click **Create function**.
+1.  On the newly created function page, go to the **Code** section.
+2.  Click **Upload from** $\rightarrow$ **.zip file** and upload the corresponding zip from the Git repo.
+3.  Verify the **Handler** setting matches the package's configuration (e.g., `index.handler` or `app.lambda_handler`).
+4.  Click **Deploy**.
 
-### 5.3 Upload function code
+### 5.4 Create Function URL (Public HTTPS Endpoint)
 
-1. On the function page, under **Code** section click **Upload from** → `.zip file` and upload the corresponding zip from the repo.
-2. Verify the handler setting matches the package's handler configuration (e.g., `index.handler` or `app.lambda_handler`).
-3. Save and **Deploy**.
+Repeat for all 8 functions. The **Function URL** is the public endpoint Salesforce will call.
 
-### 5.4 Create Function URL (public HTTPS endpoint)
+1.  On the Lambda function page $\rightarrow$ **Configuration** tab $\rightarrow$ **Function URL**.
+2.  Click **Create function URL**.
+3.  **Auth type:** Choose **NONE** if AppExchanger expects non-authenticated calls.
+      * *Alternatively, choose **AWS\_IAM** if you secure calls with IAM (requires SigV4 in Salesforce).*
+4.  Click **Create**.
+5.  **Copy the Function URL value** (it will look like `https://<xyz>.lambda-url.<region>.on.aws/`). **Save this URL** for the next step.
 
-AppExchanger expects publicly reachable function URLs which are saved into Salesforce custom metadata.
+### 5.5 Add Lambda Permission so Amazon Connect Info is Fetched (AWS Console Method)
 
-**Console method:**
+You must grant Amazon Connect permission to invoke your Lambda functions if calls originate from Amazon Connect (e.g., from a contact flow) to all deployed Lambda functions.
 
-1. On the Lambda function page → **Configuration** → **Function URL**.
-2. Click **Create function URL**.
-3. Auth type: choose **None** (if the design expects an open endpoint) or **AWS_IAM** if you want to secure calls with IAM. **Most AppExchanger installs expect function URLs with no auth** and restrict access via additional checks; confirm with your vendor/security team.
-4. Click **Create**.
-5. Copy the **Function URL** value (it will look like `https://<xyz>.lambda-url.<region>.on.aws/`)
+Repeat these steps for **each** of the 8 Lambda functions:
 
-# Fetch URL
-aws lambda get-function-url-config --function-name appex-hours-of-operation
+1.  **Open the Lambda Function:** Navigate to the specific Lambda function in the AWS Console.
+2.  Go to **Configuration**: Click on the **Configuration** tab.
+3.  Find Resource-Based Policy: In the left sidebar under Configuration, click on **Permissions**.
+4.  Add Permission: Scroll down to the **Resource-based policy** section and click **Add permissions**.
+5.  Configure Permission Details: Attached permission **“Amazon connect full Access”**
+6.  Save the Permission: Click **Save**.
 
-### 5.5 Add Lambda Permission so Amazon Connect (or other services) can invoke it
+-----
 
-You must grant Amazon Connect permission to invoke the function if calls come from Amazon Connect. Change user role to 'lambda-appExchanger-execution-role' 
+## 6\) Update Salesforce Custom Metadata with Lambda URLs
 
-## 6) Update Salesforce custom metadata with Lambda URLs
+Salesforce uses **Named Credentials** to securely call the external AWS endpoints.
 
-1. Login to Salesforce as Admin.
-2. Go to **Setup** → in Quick Find type **Custom Metadata** → **Manage Records** for the package's custom metadata (`Lambda_Code_URL__mdt` or similar).
-3. Edit the existing metadata records or create new ones. Example fields you may see:
+1.  Login to **Salesforce as Admin**.
+2.  Go to **Setup**.
+3.  **User Permissions:** In Quick Find, search for and go to your **User**. Ensure your user is assigned the necessary **SCV permission set**.
+4.  **External Credentials:**
+      * In Quick Find, type `Named Credential` $\rightarrow$ **External Credentials**.
+      * Find the record for **AWS Lambda Auth**.
+      * Go to the **Principals** section $\rightarrow$ Update the **AWS_Cred Principal**.
+      * Enter the correct **Access Key**, **Secret Key** (for a dedicated IAM User), and **IAM Role ARN** (if used for invocation).
+5.  **Named Credentials (URLs):**
+      * Navigate back to **Named Credentials**.
+      * Update the **URL** for all **8 Named Credentials** related to the Lambda functions. Each function's Named Credential must be updated with its corresponding **Function URL** copied in step 5.4.
+6.  **Remote Site Settings:**
+      * In Quick Find, type **Remote site setting**.
+      * Update the URL in all required remote sites to allow outbound calls to the new Function URLs (this is often handled automatically by Named Credentials but is a good check).
 
-   * **Name**: `Appex_HoursOfOperation` (or function-key)
-   * **Lambda_Url__c**: paste the Function URL (e.g., `https://...lambda-url.../`)
-   * **Description**: optional
-4. Repeat for all 8 Lambda functions — each function must have its corresponding metadata record updated with the correct URL.
+-----
 
-## 7) Add Lightning Web Component (LWC) to the Lightning page
+## 7\) Add Lightning Web Component (LWC) to the Lightning Page
 
-1. Go to the Lightning App (App Launcher) and open the Lightning page where you want the AppExchanger UI.
-2. Click the gear icon → **Edit Page**.
-3. In the Lightning App Builder, find the LWC component provided by the package (name will vary; example: `appexchangerManager`).
-4. Drag the component onto the desired region of the page.
-5. Save and **Activate** (if required) for profiles or app.
-6. Refresh the Lightning page and verify the component loads and calls the backend lambdas (you may see loading spinners while it fetches configuration).
+1.  Go to the target Lightning App (via App Launcher) and open the Lightning page where you want the AppExchanger UI to be located.
+2.  Click the gear icon ($\text{⚙️}$) $\rightarrow$ **Edit Page**.
+3.  In the Lightning App Builder, find the **LWC component** provided by the package (e.g., `appexchangerManager`).
+4.  **Drag the component** onto the desired region of the page layout.
+5.  **Save** and **Activate** (if required) for the relevant profiles or app defaults.
+6.  Refresh the Lightning page and verify the component loads.
 
-## 8) Post-install verification and smoke tests
+-----
 
-1. In Salesforce UI, open the page with the LWC.
-2. Try basic actions such as:
+## 8\) Post-Install Verification and Smoke Tests
 
-   * Read Hours of Operation
-   * Edit and Save Hours of Operation
-   * Add a test queue entry
-   * Update routing profile fields
-3. For each action, monitor CloudWatch logs for the Lambda function(s) invoked.
-4. If functions fail, capture the CloudWatch log stream, timestamp, and the Salesforce request payload for troubleshooting.
+1.  In the Salesforce UI, open the page containing the LWC.
+2.  Attempt the following basic read/write actions:
+      * **Read** Hours of Operation data.
+      * **Edit and Save** Hours of Operation.
+      * **Add** a test queue entry.
+      * **Update** routing profile fields.
+3.  For each action, **monitor CloudWatch logs** for the invoked Lambda function(s).
+4.  If functions fail, capture the CloudWatch log stream, timestamp, and the Salesforce request payload for troubleshooting.
 
----
+-----
 
-## 9) Troubleshooting & common issues
+## 9\) Troubleshooting & Common Issues
 
-**1. Lambda returns 403/401 when called from Salesforce**
+| Issue | Potential Cause / Solution |
+| :--- | :--- |
+| Lambda returns 403/401 | **AuthType=NONE:** Check Lambda code for expected secret header validation. Salesforce must include any required headers. **AuthType=AWS\_IAM:** Ensure Salesforce is calling via correctly signed (SigV4) requests. |
+| Function URL not reachable | Verify the Function URL value is correct in the Salesforce Named Credentials. Test the URL directly using `curl` or Postman. |
+| `add-permission` failed (duplicate) | AWS CLI will error if a statement with the same `--statement-id` exists. Use a unique statement ID or use `aws lambda remove-permission` to delete the old one. |
+| Wrong AWS Region | Lambda functions, Amazon Connect, and Function URLs must be in the **same region**. Double-check the region in the Lambda console header. |
+| Logs not visible in CloudWatch | Ensure the Lambda execution role has the necessary CloudWatch permissions (e.g., `AWSLambdaBasicExecutionRole` grants `logs:CreateLogGroup`, `logs:CreateLogStream`, `logs:PutLogEvents`). |
+| Salesforce metadata not saving | Confirm you have permission to edit package custom metadata. Some package metadata records are locked by the author; contact the package vendor if necessary. |
 
-* If you used `AuthType=NONE` for function URLs: check your Lambda code for header validation. Salesforce must include any expected secret headers.
-* If you used `AWS_IAM` auth: ensure you are calling via signed requests (SigV4) or use a service that signs requests.
+-----
 
-**2. Function URL not reachable**
-
-* Verify the function URL value is correct in custom metadata.
-* Test the function URL in curl or Postman.
-
-**3. `add-permission` failed or duplicate statement**
-
-* `aws lambda add-permission` will error if a statement with the same `--statement-id` already exists. Use a unique statement id per function.
-* Use `aws lambda remove-permission` to remove an existing statement and re-run add-permission.
-
-**4. Wrong AWS Region**
-
-* Lambda functions, Amazon Connect, and Function URLs must be in the same region. Double-check region in the Lambda console header.
-
-**5. Logs not visible**
-
-* Ensure the Lambda execution role has `logs:CreateLogGroup`, `logs:CreateLogStream`, `logs:PutLogEvents` (managed by `AWSLambdaBasicExecutionRole`).
-
-**6. Salesforce metadata not saving**
-
-* Confirm you have correct permissions to edit package custom metadata; some package metadata records are editable only if the package author allowed it. If locked, contact the package vendor.
-
-*End of README*
+Would you like me to elaborate on any of the steps, such as setting up the Named Credentials in Salesforce?
