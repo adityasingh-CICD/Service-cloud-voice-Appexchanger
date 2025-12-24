@@ -175,6 +175,7 @@ Salesforce uses **Named Credentials** to securely call the external AWS endpoint
 | Wrong AWS Region | Lambda functions, Amazon Connect, and Function URLs must be in the **same region**. Double-check the region in the Lambda console header. |
 | Logs not visible in CloudWatch | Ensure the Lambda execution role has the necessary CloudWatch permissions (e.g., `AWSLambdaBasicExecutionRole` grants `logs:CreateLogGroup`, `logs:CreateLogStream`, `logs:PutLogEvents`). |
 | Salesforce metadata not saving | Confirm you have permission to edit package custom metadata. Some package metadata records are locked by the author; contact the package vendor if necessary. |
+| Refer to the Log tracker for error details (500, 400). | Check the error description for details and ensure it is resolved.|
 
 -----
 
