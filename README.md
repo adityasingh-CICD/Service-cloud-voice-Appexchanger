@@ -53,7 +53,7 @@ After installation and configuration, supervisors/managers/admins will be able t
 ## 3\) Package Installation (Salesforce AppExchange)
 
 1.  Login to your Salesforce org as a **System Administrator**.
-2.  Go to **AppExchange** and find **AppExchanger** (or use the direct install link provided).
+2.  Go to **AppExchange** and find **SCV Amplifier** (or use the direct install link provided).
 3.  Click **Get It Now** $\rightarrow$ choose the target org (**Production or Sandbox**).
 4.  Select **Install for Admins Only** (or All Users as required).
 5.  Wait for the installation to complete. Grant required permissions when prompted.
@@ -62,8 +62,8 @@ After installation and configuration, supervisors/managers/admins will be able t
 
 ## 4\) Download Lambda Packages from Git
 
-1.  Clone or download the repository that contains the **8 Lambda packages**.
-2.  You should find 8 directories/files—one corresponding to each Lambda function. **Download all of them.**
+1.  Clone or download the repository that contains the **6 Lambda packages**.
+2.  You should find 6 directories/files—one corresponding to each Lambda function. **Download all of them.**
 
 -----
 
@@ -124,7 +124,7 @@ Repeat these steps for **each** of the 8 Lambda functions:
 
 -----
 
-## 6\) Update Salesforce Custom Metadata with Lambda URLs
+## 6\) Update Salesforce Named Credentials with Lambda URLs
 
 Salesforce uses **Named Credentials** to securely call the external AWS endpoints.
 
@@ -138,11 +138,7 @@ Salesforce uses **Named Credentials** to securely call the external AWS endpoint
       * Enter the correct **Access Key**, **Secret Key** (for a dedicated IAM User), and **IAM Role ARN** (if used for invocation).
 5.  **Named Credentials (URLs):**
       * Navigate back to **Named Credentials**.
-      * Update the **URL** for all **8 Named Credentials** related to the Lambda functions. Each function's Named Credential must be updated with its corresponding **Function URL** copied in step 5.4.
-6.  **Remote Site Settings:**
-      * In Quick Find, type **Remote site setting**.
-      * Update the URL in all required remote sites to allow outbound calls to the new Function URLs (this is often handled automatically by Named Credentials but is a good check).
-
+      * Update the **URL** for all **6 Named Credentials** related to the Lambda functions. Each function's Named Credential must be updated with its corresponding **Function URL** copied in step 5.4.
 -----
 
 ## 7\) Add Lightning Web Component (LWC) to the Lightning Page
