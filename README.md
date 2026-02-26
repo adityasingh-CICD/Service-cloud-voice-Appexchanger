@@ -145,7 +145,7 @@ Salesforce uses **Named Credentials** to securely call the external AWS endpoint
 
 1.  Go to the target Lightning App (via App Launcher) and open the Lightning page where you want the AppExchanger UI to be located.
 2.  Click the gear icon ($\text{⚙️}$) $\rightarrow$ **Edit Page**.
-3.  In the Lightning App Builder, find the **LWC component** provided by the package (e.g., `appexchangerManager`).
+3.  In the Lightning App Builder, find the **LWC component** provided by the package (e.g., `**buttonContainer**`).
 4.  **Drag the component** onto the desired region of the page layout.
 5.  **Save** and **Activate** (if required) for the relevant profiles or app defaults.
 6.  Refresh the Lightning page and verify the component loads.
